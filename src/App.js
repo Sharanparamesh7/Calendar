@@ -44,10 +44,16 @@ function App() {
     const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
     const eventName = prompt("Enter event name:");
     if (eventName) {
+      const startTime = prompt("Enter start time (e.g., 10:00 AM):");
+      const endTime = prompt("Enter end time (e.g., 11:00 AM):");
       const color = prompt("Enter a color (e.g., red, blue, green):", "blue");
       setEvents({
         ...events,
-        [dateKey]: { name: eventName, color: color || "blue" },
+        [dateKey]: {
+          name: eventName,
+          time: `${startTime} - ${endTime}`,
+          color: color || "blue",
+        },
       });
     }
   };
@@ -90,7 +96,12 @@ function App() {
               style={{ backgroundColor: event ? event.color : undefined }}
             >
               {day}
-              {event && <div className="event">{event.name}</div>}
+              {event && (
+                <div className="event">
+                  <strong>{event.name}</strong><br />
+                  <small>{event.time}</small>
+                </div>
+              )}
             </div>
           );
         })}
